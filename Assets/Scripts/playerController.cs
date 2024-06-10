@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         dir = inp.actions.FindAction("Movement").ReadValue<Vector2>();
         ani.SetFloat("x", dir.x);
