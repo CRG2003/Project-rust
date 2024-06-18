@@ -16,6 +16,8 @@ public class playerController : MonoBehaviour
 
     grid scr;
 
+    //IDictionary<int, >
+
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();

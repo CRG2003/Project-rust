@@ -10,7 +10,6 @@ public class grid : MonoBehaviour
 
     public bool createPlot(Vector2 pos, string type){
         if (points.ContainsKey(pos)){
-            Debug.Log("Plot already exists");
             return false;
         }
         else{
