@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,12 +19,15 @@ public class playerController : MonoBehaviour
     grid gri;
     items it;
 
+    public ParticleSystem collect;
+
     // Player variables 
     Vector2 dir;
     float speed = 6;
 
-    // public IDictionary<item, int> inventory = new Dictionary<item, int>();
+
     public IDictionary<int, item> inventory = new Dictionary<int, item>();
+
 
 
     void Start() {
@@ -60,25 +64,57 @@ public class playerController : MonoBehaviour
             gri.createPlot(new Vector2(a * 3, b * 3), "field");
         }
 
+
+        // inventory debug
         string s = "";
         foreach(KeyValuePair<int, item> k in inventory) {
             if (k.Value != null) {
-                s += k.Value.getName() + " / ";
+                s += k.Value.getName() + ": " + k.Value.getCount() + "  /  ";
+            }
+            else {
+                s += "empty  /  ";
             }
         }
         Debug.Log(s);
 
     }
 
+
+    public bool check;
+    public int pos;
     void OnTriggerEnter(Collider hit) {
+
         if (it.index.ContainsKey(hit.name)) {
-            for (int i = 0; i < inventory.Count; i++) { 
-                if (inventory[i] == null){
-                    inventory[i] = it.index[hit.name];
-                    Destroy(hit.gameObject);
-                    break;
+
+            // checks if item is already in inventory 
+            check = false;
+            pos = 0;
+            foreach(KeyValuePair<int, item> k in inventory) {
+                if (k.Value != null) {
+                    if (k.Value.getName() == it.index[hit.name].getName() && k.Value.getCount() != k.Value.getCapacity()) {
+                        check = true;
+                        pos = k.Key;
+                    }
                 }
             }
+
+            // incriments existing item count
+            if (check) { inventory[pos].incriment(); }
+
+
+            // adding new item to first empty slot
+            else{
+                for (int i = 0; i < inventory.Count; i++) {
+                    if (inventory[i] == null) {
+                        inventory[i] = it.index[hit.name].CloneViaSerialization();
+                        break;
+                    }
+                }
+            }
+            ParticleSystem g = Instantiate(collect, t.transform);
+            g.transform.position = hit.transform.position;
+            Destroy(hit.gameObject);
+
         }
     }
 }
