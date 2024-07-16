@@ -22,11 +22,15 @@ public class playerController : MonoBehaviour
     Vector2 dir;
     float speed = 6;
 
-    public IDictionary<item, int> inventory = new Dictionary<item, int>();
-
+    // public IDictionary<item, int> inventory = new Dictionary<item, int>();
+    public IDictionary<int, item> inventory = new Dictionary<int, item>();
 
 
     void Start() {
+
+        for (int i = 0; i < 10; i++) {
+            inventory.Add(i, null);
+        }
 
         rb = transform.GetComponent<Rigidbody>();
         inp = GetComponent<PlayerInput>();
@@ -56,6 +60,13 @@ public class playerController : MonoBehaviour
             gri.createPlot(new Vector2(a * 3, b * 3), "field");
         }
 
+        foreach(KeyValuePair<int, item> k in inventory) {
+            if (k.Value != null) {
+                Debug.Log(k.Value.getName());
+            }
+        }
+
+        /*
         if (inp.actions.FindAction("q").ReadValue<float>() > 0) {
             inventory.Add(it.returnExample(), 1);
         }
@@ -67,8 +78,11 @@ public class playerController : MonoBehaviour
             i++;
             Debug.Log(i + ": " + k.Key.getName() + " - " + k.Key.getCount());
         }
+        */
 
     }
+
+    /*  OLD ITEM DETECTION
     void OnTriggerEnter(Collider hit) {
         if (hit.CompareTag("apple")) {
             if (inventory.ContainsKey(it.returnApple())){
@@ -80,4 +94,5 @@ public class playerController : MonoBehaviour
             Destroy(hit.gameObject);
         }
     }
+    */
 }
