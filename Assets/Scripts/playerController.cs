@@ -60,39 +60,25 @@ public class playerController : MonoBehaviour
             gri.createPlot(new Vector2(a * 3, b * 3), "field");
         }
 
+        string s = "";
         foreach(KeyValuePair<int, item> k in inventory) {
             if (k.Value != null) {
-                Debug.Log(k.Value.getName());
+                s += k.Value.getName() + " / ";
             }
         }
-
-        /*
-        if (inp.actions.FindAction("q").ReadValue<float>() > 0) {
-            inventory.Add(it.returnExample(), 1);
-        }
-
-
-        // debugging
-        int i = 0;
-        foreach (KeyValuePair<item, int> k in inventory) {
-            i++;
-            Debug.Log(i + ": " + k.Key.getName() + " - " + k.Key.getCount());
-        }
-        */
+        Debug.Log(s);
 
     }
 
-    /*  OLD ITEM DETECTION
     void OnTriggerEnter(Collider hit) {
-        if (hit.CompareTag("apple")) {
-            if (inventory.ContainsKey(it.returnApple())){
-                inventory[it.returnApple()]++;
+        if (it.index.ContainsKey(hit.name)) {
+            for (int i = 0; i < inventory.Count; i++) { 
+                if (inventory[i] == null){
+                    inventory[i] = it.index[hit.name];
+                    Destroy(hit.gameObject);
+                    break;
+                }
             }
-            else {
-                inventory.Add(it.returnApple(), 1);
-            }
-            Destroy(hit.gameObject);
         }
     }
-    */
 }

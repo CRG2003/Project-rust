@@ -1,12 +1,20 @@
+using OpenCover.Framework.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 // classes to access items
-public class items : MonoBehaviour { 
-    public item returnExample(){ return new example(); }
-    public item returnApple(){ return new apple(); }
+public class items : MonoBehaviour {
+
+    // public IDictionary<int, item> list = new Dictionary<int, item>();
+    public IDictionary<string, item> index = new Dictionary<string, item>();
+
+    void Start(){
+        index.Add("Apple", new apple());
+        index.Add("Monster Horns", new horns());
+    }
 }
 
 
@@ -17,26 +25,24 @@ public class item
     protected int count = 0;
     protected int capacity;
 
-    public string getName() { return name; }
+    public string getName()  { return name; }
     public int getCapacity() { return capacity; }
-    public int getCount() { return count; }
+    public int getCount()    { return count; }
 }
 
 
 
 // List of actual items
-public class example : item { 
-    public example() {
-        name = "example";
-        count = 1;
-        capacity = 5;
-    }
-}
-
 public class apple : item {
     public apple() {
         name = "Apple";
-        count = 1;
         capacity = 10;
+    }
+}
+
+public class horns : item { 
+    public horns() {
+        name = "Monster Horns";
+        capacity = 3;
     }
 }
