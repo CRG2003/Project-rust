@@ -44,7 +44,7 @@ public class apple : item {
         name = "Apple";
         capacity = 10;
         count = 1;
-        img = Resources.Load<Sprite>("Assets/Items/Images/SApple");
+        img = Resources.Load<Sprite>("Items/Images/SApple");
     }
 }
 
@@ -61,7 +61,7 @@ public class potato : item {
         name = "Potato";
         capacity = 10;
         count = 1;
-        img = Resources.Load<Sprite>("Assets/Items/Images/SPotato");
+        img = Resources.Load<Sprite>("Items/Images/SPotato");
     }
 }
 
