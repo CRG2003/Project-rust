@@ -63,20 +63,6 @@ public class playerController : MonoBehaviour
         if (inp.actions.FindAction("e").ReadValue<float>() > 0) {
             gri.createPlot(new Vector2(a * 3, b * 3), "field");
         }
-
-
-        // inventory debug
-        string s = "";
-        foreach(KeyValuePair<int, item> k in inventory) {
-            if (k.Value != null) {
-                s += k.Value.getName() + ": " + k.Value.getCount() + "  /  ";
-            }
-            else {
-                s += "empty  /  ";
-            }
-        }
-        Debug.Log(s);
-
     }
 
 
