@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
     Image p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14;
     TextMeshProUGUI t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14;
 
+    Slider pHealth;
+
     List<Image> imgs = new List<Image>();
     List<TextMeshProUGUI> txts = new List<TextMeshProUGUI>();
 
@@ -18,6 +20,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         i = GameObject.Find("Player").GetComponent<playerController>();
+        pHealth = GameObject.Find("Slider").GetComponent<Slider>();
 
         p1 = GameObject.Find("i1").GetComponent<Image>();     imgs.Add(p1);
         p2 = GameObject.Find("i2").GetComponent<Image>();     imgs.Add(p2);
@@ -67,5 +70,6 @@ public class UIController : MonoBehaviour
                 c++;
             }
         }
+        pHealth.value = i.getHealth();
     }
 }

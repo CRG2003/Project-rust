@@ -24,6 +24,7 @@ public class playerController : MonoBehaviour
     // Player variables 
     Vector2 dir;
     float speed = 6;
+    int health = 10;
 
 
     public IDictionary<int, item> inventory = new Dictionary<int, item>();
@@ -46,6 +47,7 @@ public class playerController : MonoBehaviour
     }
 
 
+    // Fixed update for physics based movement controls
     void FixedUpdate() {
 
         // Player inputs
@@ -54,14 +56,22 @@ public class playerController : MonoBehaviour
         ani.SetFloat("y", dir.y);
 
         rb.AddForce(new Vector3(dir.x, 0, dir.y * 1.5f) * speed);
+    }
 
+
+    // Update for other user inputs (e.g. interactions)
+    void Update() {
         int a = (int)(rb.transform.position.x) / 3;
         int b = (int)(rb.transform.position.z) / 3;
 
         orb.transform.position = new Vector3(a * 3, 0, b * 3);
 
-        if (inp.actions.FindAction("e").ReadValue<float>() > 0) {
+        if (inp.actions.FindAction("e").WasPressedThisFrame()) {
             gri.createPlot(new Vector2(a * 3, b * 3), "field");
+        }
+
+        if (inp.actions.FindAction("q").WasPressedThisFrame()) {
+            health--;
         }
     }
 
@@ -102,5 +112,10 @@ public class playerController : MonoBehaviour
             Destroy(hit.gameObject);
 
         }
+    }
+
+    public int getHealth()
+    {
+        return health;  
     }
 }
